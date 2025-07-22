@@ -33,7 +33,7 @@
 
 3. Получите ключ API по инструкции:  
 
-https://yandex.cloud/ru/docs/foundation-models/operations/get-api-key 
+https://developers.sber.ru/studio/workspaces/
 
 Сохраните его в переменной окружения YA_API_KEY в файле .env  
 
