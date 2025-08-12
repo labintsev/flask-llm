@@ -11,8 +11,7 @@ logger = logging.getLogger(__name__)
 # Загружаем переменные окружения из файла .env
 try:
     env = dotenv.dotenv_values(".env")
-    YA_API_KEY = env["YA_API_KEY"]
-    YA_FOLDER_ID = env["YA_FOLDER_ID"]
+    API_KEY = env["GIGA_KEY"]
 except FileNotFoundError:
     raise FileNotFoundError("Файл .env не найден. Убедитесь, что он существует в корневой директории проекта.")
 except KeyError as e:
@@ -33,9 +32,9 @@ class ChatHistory(db.Model):
         llm_reply (str): Ответ языковой модели.
         timestamp (datetime): Время создания записи.
     """
-    id = db.Column(db.Integer, primary_key=True)  # Уникальный идентификатор
-    user_message = db.Column(db.Text, nullable=False)  # Текст сообщения пользователя
-    llm_reply = db.Column(db.Text, nullable=False)  # Ответ модели
+    id = db.Column(db.Integer, primary_key=True)        # Уникальный идентификатор
+    user_message = db.Column(db.Text, nullable=False)   # Текст сообщения пользователя
+    llm_reply = db.Column(db.Text, nullable=False)      # Ответ модели
     timestamp = db.Column(db.DateTime, server_default=db.func.now())  # Временная метка создания записи
 
 
@@ -62,7 +61,7 @@ class LLMService:
         try:
             # Создаем клиент с вашим токеном
             self.client = GigaChat(
-                credentials=env['GIGA_KEY'], 
+                credentials=API_KEY, 
                 model='GigaChat-2', 
                 verify_ssl_certs=False)
         except Exception as e:
